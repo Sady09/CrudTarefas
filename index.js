@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import taskRoutes from './routes/taskRoutes.js'
-import userRoutes from './routes/userRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 
 const app = express()
 const port = 3333
@@ -13,7 +13,7 @@ mongoose.connect("mongodb://localhost:27017/todolist", {
 
 app.use(express.json());
 app.use('/tasks', taskRoutes)
-app.use('/tasks', userRoutes)
+app.use('/auth', authRoutes)
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

@@ -28,10 +28,11 @@ export const userRegister = async (req, res) => {
 export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body
+    const existingEmail = await User.findOne({ email })
     const user = await User.findOne({ email })
 
-    if (!email) {
-      return res.status(404).send("Email incorreto")
+    if (!existingEmail) {
+      return res.status(404).send("Não há contas com esse email")
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
