@@ -6,7 +6,7 @@ export const getAllTasks = async (req, res) => {
     if (!tasks) {
       return res.status(500).json({ error: "Tasks nao encontrdas no banco de dados" })
     }
-    res.status(200).json(tasks)
+    res.status(200).json({ tasks })
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Falha ao tentar exibir todas as task" })
