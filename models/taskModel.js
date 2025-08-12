@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 // Define the Task schema
 const taskSchema = new mongoose.Schema({
   title: {
@@ -14,6 +15,12 @@ const taskSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  ownerId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+    index: true,
+  }
 });
 // Create the Task model from the schema
 const Task = mongoose.model("Task", taskSchema, "tasks");

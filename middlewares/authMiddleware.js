@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import jwt, { decode } from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -15,7 +15,11 @@ export const authMiddleware = async (req, res, next) => {
       return res.status(403).json({ error: "Token inválido ou expirado" })
     }
 
-    req.user = decoded;
+    req.user = {
+      ...decode,
+      id: decoded.sub
+    };
+
     next();
   })
 }

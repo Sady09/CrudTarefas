@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import taskRoutes from './routes/taskRoutes.js'
 import authRoutes from './routes/authRoutes.js'
-import { authMiddleware } from './controllers/middlewares/authMiddleware.js';
+import { authMiddleware } from './middlewares/authMiddleware.js';
 
 const app = express()
 const port = 3333
