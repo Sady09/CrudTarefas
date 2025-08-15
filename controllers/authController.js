@@ -24,7 +24,7 @@ export const userRegister = async (req, res) => {
 
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Falha ao tentar criar usuário" })
+    res.status(500).json({ error: "Erro interno ao tentar criar usuário" })
   }
 }
 
@@ -35,12 +35,12 @@ export const userLogin = async (req, res) => {
     const user = await User.findOne({ email })
 
     if (!existingEmail) {
-      return res.status(404).send("Não há contas com esse email")
+      return res.status(404).send("Usuário não encontrado")
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
     if (!isPasswordValid) {
-      return res.status(404).send("Senha incorreta")
+      return res.status(401).json({ error: "Senha incorreta" })
     }
 
     const token = jwt.sign(
@@ -58,6 +58,6 @@ export const userLogin = async (req, res) => {
 
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Falha ao tentar entrar na conta" })
+    res.status(500).json({ error: "Erro interno ao fazer login" })
   }
 }

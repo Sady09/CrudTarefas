@@ -4,7 +4,7 @@ export const getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find({ ownerId: req.user.id })
     if (!tasks) {
-      return res.status(404).json({ error: "Tasks nao encontradas no banco de dados" })
+      return res.status(200).json({ error: "Tasks nao encontradas no banco de dados" })
     }
     res.status(200).json(tasks)
   } catch (error) {
@@ -20,7 +20,7 @@ export const getTaskById = async (req, res) => {
       ownerId: req.user.id
     })
     if (!task) {
-      return res.status(500).json({ error: "Task com esse id nao encontrado no banco de dados" })
+      return res.status(404).json({ error: "Task com esse id nao encontrado no banco de dados" })
     }
     res.status(200).json(task)
   } catch (error) {
@@ -38,7 +38,7 @@ export const createTask = async (req, res) => {
 
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Falha ao tentar criar task" })
+    res.status(400).json({ error: "Falha ao tentar criar task" })
   }
 }
 
