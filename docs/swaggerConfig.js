@@ -1,5 +1,7 @@
 // docs/swaggerConfig.js
 import swaggerJsdoc from 'swagger-jsdoc';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const swaggerOptions = {
   definition: {
@@ -11,8 +13,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3333', // altere para o link do deploy depois
-      }
+        url: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3333}`,
+      },
     ],
     components: {
       securitySchemes: {
