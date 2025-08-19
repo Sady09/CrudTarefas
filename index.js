@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+dotenv.config();
 import express from 'express';
 import mongoose from 'mongoose';
 import taskRoutes from './routes/taskRoutes.js'
@@ -7,12 +9,11 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './docs/swaggerConfig.js';
 
 const app = express()
-const port = 3333
+const port = process.env.PORT || 3333;
 
-mongoose.connect("mongodb://localhost:27017/todolist", {
-})
-  .then(() => console.log("MongoDB conectado"))
-  .catch((err) => console.error("Erro ao conectar no MongoDB:", err));
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Atlas conectado"))
+  .catch((err) => console.error("Erro ao conectar no MongoDB Atlas:", err));
 
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

@@ -20,7 +20,7 @@ export const userRegister = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10)
     const newUser = new User({ username, email, password: hashedPassword })
     await newUser.save()
-    res.status(201).send("Usuário criado com sucesso!")
+    res.status(201).json({ message: "Usuário criado com sucesso!" })
 
   } catch (error) {
     console.log(error);
@@ -35,7 +35,7 @@ export const userLogin = async (req, res) => {
     const user = await User.findOne({ email })
 
     if (!existingEmail) {
-      return res.status(404).send("Usuário não encontrado")
+      return res.status(404).json({ message: "Usuário não encontrado" })
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password)
