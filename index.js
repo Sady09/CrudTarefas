@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((err) => console.error("Erro ao conectar no MongoDB Atlas:", err));
 
 app.use(express.json());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/tasks', authMiddleware, taskRoutes)
 app.use('/auth', authRoutes)
 
